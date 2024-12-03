@@ -1,0 +1,23 @@
+name: Docker Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Build sub-web
+      run: docker build -t sub-web -f docker/sub-web.Dockerfile .
+      
+    - name: Test containers
+      run: |
+        docker-compose up -d
+        sleep 10
+        curl -f http://localhost:80 || exit 1
+        curl -f http://localhost:25500/version || exit 1 

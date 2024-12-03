@@ -1,0 +1,17 @@
+version: "1.1"
+timeout: 5000
+keepAlive: true
+maxHeaderSize: 8192
+compression:
+  enabled: true
+  level: 6
+  algorithms:
+    - gzip
+    - deflate
+security:
+  tls:
+    enabled: true
+    minVersion: "1.2"
+    ciphers:
+      - TLS_AES_128_GCM_SHA256
+      - TLS_AES_256_GCM_SHA384 
